@@ -1,0 +1,93 @@
+availability and durability: single
+credential settings: username and password
+DB instance class: db.t3.micro
+storage type/storage : gp3
+allocated storage:20
+vpc
+db subnet group
+public access:no
+
+* Endpoint and port in rds: means it is a dns name to connect backend server to rds server.
+* telnet "endpoint and port" if it's not connecting means there is a security problem.
+* sometimes if there is a default security for vpc we need to modify in rds
+* at the same way instance side , check security group , in ingress if there is a default security change " all traffic and port" with cidr_block 0.0.0.0/0 then it allow any id address.
+
+DataBackup:(solved: Adding backup parameters in RDS is solving it.)
+===========
+Like Database are important we need backup on those
+
+Data Security: (Solved: by adding KMS keys to storage and encrypted it
+==============
+we are hosting our data in AWS. Meaning AWS can read our data??(here in RDS, mysql can read data from database and to encrypt the disk by using KMS key id)
+
+Site Disaster:
+==============
+Due to any natural calamities our Data center can go down, how are design our application on availability
+
+Disk encryption:
+================
+on top of the physical machine,there are multi VM's are available,in this VM's we can run OS(for example instance is an VM , OS is a red hat linux),to run software
+at the same way in RDS also but there is a slight difference instead of running software,we can run Mysql
+here there is a risk to access our data by someone, so here need to do disk encryption.
+
+Disk Encryption:
+================
+Different type of storages:
+-----------------------------
+DAS ---- Direct attach storage
+NAS ---- Network attach storage
+in the above two storage , any one can provide Disk encryption,
+KMS ---key Management system
+
+Data Encryption:
+=================
+1. Data at REST(KMS Keys)
+2.Data at Transmit(SSL/HTTPS)
+
+once an instance is destroyed and recreating , at this time null resources wont be executed.
+for this we can use
+trigger{
+instance = aws_instance.instance.id
+}
+this trigger will work only for null resources.
+
+
+* to encrypt instance server disk also
+root_block_device{
+encrypted  = true
+kms_key_id = kms_key_id
+}
+
+two types of backups:
+=====================
+* native backup
+* mysql backup
+
+// to take backup in rds we use snapshot
+backup_retention_period = 35 , here 35 is number of days
+backup_window = 09:46-10:16
+
+What is VM goes down?/single server for each component
+========================================================
+Autoscaling group:
+------------------
+An Auto Scaling group in AWS (Amazon Web Services) is a collection of EC2 instances that are managed together as a single unit for automatic scaling and management.
+Example Scenario:
+==================
+* Suppose you have a web application with fluctuating traffic:
+* During peak hours, the Auto Scaling group can automatically launch additional instances to handle increased traffic.
+* During off-peak hours, it can terminate instances to save costs.
+* If an instance fails, it can automatically replace it with a new one.
+
+
+* before creating autoscaling group
+* first go to "launch template"
+
+* install stress package to test cpu usage
+stress --cpu 8 --timeout 200000s
+
+
+
+
+
+

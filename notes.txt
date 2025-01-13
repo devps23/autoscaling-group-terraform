@@ -1,0 +1,23 @@
+1. create a vpc
+2. create a multi subnets
+frontend_subnets[]
+backend_subnets[]
+mysql_subnets[]
+3.get availability zones and add to the subnets
+4.peer connection between two vpc id's
+5.create a route table for all subnets
+frontend_route_table
+subnet_route_table
+db_route_table
+6.edit routes and add default vpc id and peer connection for all subnets
+7.create an internet gateway for internet(it is just like plug)
+8. create a nat gateway
+9.create an eip
+10.get connection for public subnets from internet gateway
+10.1 associate between route table id and private subnets
+11.get connection for nat gateway from public subnets
+12.get connection for private subnets from nat gateway
+13. add security group to an instance
+14.edit default route table id and add another means custom vpc id and peer connection to allow traffic
+once we add security group to an instance then only we can able to access an instance outside
+security group is more important

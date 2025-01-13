@@ -1,0 +1,42 @@
+1.every load balancer will have a statis ip address
+nslookup "dns name" in load balancer
+2.load balancer have an option static ips
+3. create a load balancer
+4.create a target group
+5.to attach all instances by using target group attachment
+6.create a listener to send client request with port and protocol
+7.add security groups in load balancer
+* curl localhost:8080
+* curl -v localhost:8080
+* curl -v localhost:8080/health,to check status of health
+* to configure healthy checks in target groups
+* create a route53 records with type="CNAME",here CNAME means canonical names like blog.example.com -> example.com, type="A" means address record.
+nslookup mysql-dev.pdevops72.online
+--------------------------------------------------------------------------------------------------
+* to open application ports for appropriate subnets
+
+* server ports : bottom to top
+==================================
+* mysql can accessed by backend subnets
+* backend subnets accessed by frontend and backend subnet itself, because load balancer is connected to backend
+* frontend subnets can be accessed by public subnets
+
+load balancer app ports: top -bottom
+====================================
+* load balancer has reverse proxy coniguration , so lb_app_port ["0.0.0.0/0"]
+so add lb_app_port ["0.0.0.0/0"] in frontend
+* backend subnets, in load balancer frontend communicates with backend
+
+
+redirect from http to https:
+============================
+http ----> not convert to https
+https -----> convert http
+https -----> https
+
+11/01/2025
+tmrw i need to check healthy
+add application port in security group
+redirect
+rds
+

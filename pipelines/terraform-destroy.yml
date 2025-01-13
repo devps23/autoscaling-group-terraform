@@ -1,0 +1,31 @@
+format_version: 10
+pipelines:
+  vault-terraform:
+    group: tools
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-2ae7d73:
+        git: https://github.com/devps23/expense-practice-terraform.git
+        shallow_clone: false
+        auto_update: true
+        branch: main
+
+    stages:
+      tools:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: manual
+          allow_only_on_success: false
+        jobs:
+          vault-jobs:
+            timeout: 0
+            tasks:
+              - exec: { command: terraform, arguments: ["init","-backend-config=env-dev/state.tfvars"], run_if: passed }
+              - exec: { command: terraform, arguments: ["destroy","-var-file=env-dev/main.tfvars","-auto-approve"], run_if: passed }
+
+
+

@@ -1,0 +1,16 @@
+* AutoScalingPolicy: An AWS Auto Scaling policy is a set of instructions that tell AWS how to dynamically adjust the number of instances in an Auto Scaling group.
+Several types of Autoscaling group:
+======================================
+* Target Tracking Scaling
+* Step Scaling
+* Simple Scaling
+how to set up an Auto Scaling policy:
+======================================
+* Create a CloudWatch Alarm: Monitor a specific metric, such as CPU utilization.
+* Define Scaling Policies: Specify the actions to take when the CloudWatch alarm is triggered.
+* Attach Policies to Auto Scaling Group: Link the scaling policies to your Auto Scaling group to automatically adjust the number of instances based on the policies.
+* The policy adds instances based on different ranges of CPU utilization.
+
+user data in an ec2 instance launch:(to run applications in autoscaling group)
+==============================================================================
+In AWS, user data refers to the script or commands that you can specify when launching an instance. This user data script runs only once at the instance's first boot. It is typically used to automate the configuration of instances, install software, or perform other tasks that you need to set up your instance.
