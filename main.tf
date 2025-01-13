@@ -88,7 +88,7 @@ module "rds"{
 
 module "backend"{
   source = "./modules/asg"
-  component = backend
+  component = "backend"
   env = var.env
   app_port = 8080
   subnets_id = module.vpc.backend_subnets
