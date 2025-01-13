@@ -100,5 +100,4 @@ module "backend"{
   lb_app_port = {http:8080}
   lb_subnets = module.vpc.backend_subnets
   lb_app_port_cidr = var.backend_subnets
-  vault_token = var.vault_token
 }
