@@ -4,6 +4,9 @@ resource "aws_launch_template" "launch_template"{
   image_id = data.aws_ami.ami.id
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.server_sg.id]
+  tags = {
+    Name = "${var.env}-${var.component}-ltmp"
+  }
 }
 resource "aws_autoscaling_group" "scaling_group" {
   name = "${var.env}-${var.component}-asg"
@@ -15,6 +18,7 @@ resource "aws_autoscaling_group" "scaling_group" {
     id      = aws_launch_template.launch_template.id
     version = "$Latest"
   }
+
 }
 # create target group
 resource "aws_lb_target_group" "tg" {
