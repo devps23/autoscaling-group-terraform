@@ -87,6 +87,7 @@ module "rds"{
 # }
 
 module "backend"{
+  depends_on = [module.rds]
   source = "./modules/asg"
   component = "backend"
   env = var.env
