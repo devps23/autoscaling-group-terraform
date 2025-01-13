@@ -18,7 +18,11 @@ resource "aws_autoscaling_group" "scaling_group" {
     id      = aws_launch_template.launch_template.id
     version = "$Latest"
   }
-
+  tag {
+    key                 = "Name"
+    value               = "${var.env}-${var.component}-asg"
+    propagate_at_launch = true
+  }
 }
 # create target group
 resource "aws_lb_target_group" "tg" {
