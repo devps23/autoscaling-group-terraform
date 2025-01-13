@@ -1,7 +1,7 @@
 env = "dev"
 instance_type = "t2.micro"
 zone_id="Z09583601MY3QCL7AJKBT"
-# vault_token="hvs.fMGVYmkvteLqprw3itd1iXUe"
+vault_token="hvs.fMGVYmkvteLqprw3itd1iXUe"
 vpc_cidr_block="10.10.0.0/16"
 frontend_subnets=["10.10.0.0/19","10.10.32.0/19"]
 backend_subnets=["10.10.64.0/19","10.10.96.0/19"]
