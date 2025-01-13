@@ -56,6 +56,21 @@ module "vpc"{
 #   lb_app_port = {http:8080}
 #   kms_key_id = var.kms_key_id
 # }
+module "backend"{
+  depends_on = [module.rds]
+  source = "./modules/asg"
+  component = "backend"
+  env = var.env
+  app_port = 8080
+  subnets_id = module.vpc.backend_subnets
+  vpc_id = module.vpc.vpc_id
+  lb_internal_facing = "public"
+  bastion_nodes = var.bastion_nodes
+  server_app_port_cidr = concat(var.frontend_subnets,var.backend_subnets)
+  lb_app_port = {http:8080}
+  lb_subnets = module.vpc.backend_subnets
+  lb_app_port_cidr = var.backend_subnets
+}
 module "rds"{
   source = "./modules/rds"
   component = "mysql"
@@ -86,18 +101,3 @@ module "rds"{
 #   app_port = 3306
 # }
 
-module "backend"{
-  depends_on = [module.rds]
-  source = "./modules/asg"
-  component = "backend"
-  env = var.env
-  app_port = 8080
-  subnets_id = module.vpc.backend_subnets
-  vpc_id = module.vpc.vpc_id
-  lb_internal_facing = "public"
-  bastion_nodes = var.bastion_nodes
-  server_app_port_cidr = concat(var.frontend_subnets,var.backend_subnets)
-  lb_app_port = {http:8080}
-  lb_subnets = module.vpc.backend_subnets
-  lb_app_port_cidr = var.backend_subnets
-}

@@ -1,12 +1,12 @@
 // create a launch template
 resource "aws_launch_template" "launch_template"{
-  name = "test"
+  name = "${var.env}-${var.component}-ltmp"
   image_id = data.aws_ami.ami.id
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.server_sg.id]
 }
 resource "aws_autoscaling_group" "scaling_group" {
-  name = "asg"
+  name = "${var.env}-${var.component}-asg"
   desired_capacity   = 1
   max_size           = 2
   min_size           = 1
