@@ -17,8 +17,8 @@ resource "aws_db_instance" "db_instance" {
   storage_encrypted    = true
   kms_key_id           = var.kms_key_id
 #   to take snapshot in rds
-  backup_retention_period = 35
-  backup_window           = "09:46-10:16"
+#   backup_retention_period = 35
+#   backup_window           = "09:46-10:16"
 }
 resource "aws_db_parameter_group" "pg" {
   name   = "${var.env}-${var.component}-rds"
