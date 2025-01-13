@@ -20,7 +20,7 @@ resource "aws_autoscaling_group" "scaling_group" {
   }
   tag {
     key                 = "Name"
-    value               = "${var.env}-${var.component}-asg"
+    value               = "${var.env}-${var.component}"
     propagate_at_launch = true
   }
 }
