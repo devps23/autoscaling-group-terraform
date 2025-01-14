@@ -85,7 +85,7 @@ module "rds"{
   engine_version       = "8.0.36"
   instance_class       = "db.t3.micro"
   storage_type         = "gp3"
-  kms_key_id              = var.kms_key_id
+  kms_key_id           = var.kms_key_id
 }
 # module "mysql" {
 #   source            = "./modules/app"

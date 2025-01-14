@@ -14,3 +14,29 @@ how to set up an Auto Scaling policy:
 user data in an ec2 instance launch:(to run applications in autoscaling group)
 ==============================================================================
 In AWS, user data refers to the script or commands that you can specify when launching an instance. This user data script runs only once at the instance's first boot. It is typically used to automate the configuration of instances, install software, or perform other tasks that you need to set up your instance.
+
+1.// create a launch template
+  resource "aws_launch_template" "launch_template"{
+    name = "${var.env}-${var.component}"
+    image_id = data.aws_ami.ami.id
+    instance_type = "t2.micro"
+    vpc_security_group_ids = [aws_security_group.server_sg.id]
+
+  }
+
+resource "aws_autoscaling_group" "scaling_group" {
+  name = "${var.env}-${var.component}"
+  desired_capacity   = 1
+  max_size           = 2
+  min_size           = 1
+  vpc_zone_identifier = var.subnets_id, is used to create an instance inside a subnets
+  launch_template {
+    id      = aws_launch_template.launch_template.id
+    version = "$Latest"
+  }
+  tag {
+    key                 = "Name"
+    value               = "${var.env}-${var.component}"
+    propagate_at_launch = true
+  }
+}
